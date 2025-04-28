@@ -5,6 +5,7 @@ import com.example.product.entity.Product;
 import com.example.product.exception.ProductNotFoundException;
 import com.example.product.mapper.MainMapper;
 import com.example.product.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,18 +34,30 @@ public class ProductServiceImpl implements ProductService {
         return products.stream().map(mapper::toDTO).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
-        return null;
+        Product product = mapper.toEntity(productDTO);
+        return mapper.toDTO(repository.save(product));
     }
 
+    @Transactional
     @Override
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
-        return null;
+        if (!repository.existsById(id)) {
+            throw new ProductNotFoundException(id);
+        }
+        Product productToUpdate = mapper.toEntity(productDTO);
+        productToUpdate.setId(id);
+        return mapper.toDTO(repository.save(productToUpdate));
     }
 
+    @Transactional
     @Override
     public void deleteProduct(Long id) {
-
+        if (repository.existsById(id)) {
+            throw new ProductNotFoundException(id);
+        }
+        repository.deleteById(id);
     }
 }

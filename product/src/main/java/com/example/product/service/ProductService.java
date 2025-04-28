@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    public ProductDTO getById(Long id);
-    public List<ProductDTO> getAllProducts();
-    public ProductDTO saveProduct(ProductDTO productDTO);
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO);
-    public void deleteProduct(Long id);
+    ProductDTO getById(Long id);
+    List<ProductDTO> getAllProducts();
+    ProductDTO saveProduct(ProductDTO productDTO);
+    ProductDTO updateProduct(Long id, ProductDTO productDTO);
+    void deleteProduct(Long id);
 }
