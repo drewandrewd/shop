@@ -1,0 +1,50 @@
+package com.example.product.service;
+
+import com.example.product.dto.ProductDTO;
+import com.example.product.entity.Product;
+import com.example.product.exception.ProductNotFoundException;
+import com.example.product.mapper.MainMapper;
+import com.example.product.repository.ProductRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@AllArgsConstructor
+public class ProductServiceImpl implements ProductService {
+
+    private final ProductRepository repository;
+    private final MainMapper mapper;
+
+    @Override
+    public ProductDTO getById(Long id) {
+        return repository.findById(id)
+                .map(mapper::toDTO).orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+    @Override
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = repository.findAll();
+        if (products.isEmpty()) {
+            throw new ProductNotFoundException();
+        }
+        return products.stream().map(mapper::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductDTO saveProduct(ProductDTO productDTO) {
+        return null;
+    }
+
+    @Override
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+
+    }
+}
