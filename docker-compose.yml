@@ -1,0 +1,83 @@
+version: '3.9'
+services:
+
+  postgres-auth:
+    image: postgres:15
+    container_name: auth-db
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+    ports:
+      - "5433:5432"
+    networks:
+      - shop-network
+
+  postgres-product:
+    image: postgres:15
+    container_name: product-db
+    environment:
+      POSTGRES_DB: product_db
+      POSTGRES_USER: product_user
+      POSTGRES_PASSWORD: product_pass
+    ports:
+      - "5434:5432"
+    networks:
+      - shop-network
+
+  postgres-order:
+    image: postgres:15
+    container_name: order-db
+    environment:
+      POSTGRES_DB: order_db
+      POSTGRES_USER: order_user
+      POSTGRES_PASSWORD: order_pass
+    ports:
+      - "5435:5432"
+    networks:
+      - shop-network
+
+  eureka-server:
+    build: ./eureka
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - shop-network
+
+  auth-service:
+    build: ./auth
+    container_name: auth
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres-auth
+      - eureka-server
+    networks:
+      - shop-network
+
+  product-service:
+    build: ./product
+    container_name: product
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres-product
+      - eureka-server
+    networks:
+      - shop-network
+
+  order-service:
+    build: ./order
+    container_name: order
+    ports:
+      - "8083:8083"
+    depends_on:
+      - postgres-order
+      - eureka-server
+    networks:
+      - shop-network
+
+networks:
+  shop-network:
+    driver: bridge

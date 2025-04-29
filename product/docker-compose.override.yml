@@ -1,0 +1,4 @@
+services:
+  product-service:
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker

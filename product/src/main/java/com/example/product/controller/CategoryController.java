@@ -2,16 +2,19 @@ package com.example.product.controller;
 
 import com.example.product.dto.CategoryDTO;
 import com.example.product.service.CategoryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService service;
+
+    public CategoryController(CategoryService service) {
+        this.service = service;
+    }
 
     @GetMapping("/{id}")
     public CategoryDTO getById(@PathVariable Long id) {

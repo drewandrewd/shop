@@ -29,6 +29,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<mapsruct.version>1.6.2</mapsruct.version>
+		<swagger.version>2.5.0</swagger.version>
+		<eureka-client.version>4.1.3</eureka-client.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -82,6 +84,16 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${mapsruct.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>${eureka-client.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -101,14 +113,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

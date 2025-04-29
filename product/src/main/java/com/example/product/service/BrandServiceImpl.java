@@ -41,7 +41,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public BrandDTO updateBrand(Long id, BrandDTO brandDTO) {
-        if (repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new BrandNotFoundException(id);
         }
         Brand brand = mapper.toEntity(brandDTO);

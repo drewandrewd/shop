@@ -2,16 +2,19 @@ package com.example.product.controller;
 
 import com.example.product.dto.BrandDTO;
 import com.example.product.service.BrandService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/brands")
-@AllArgsConstructor
 public class BrandController {
 
     private final BrandService brandService;
+
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
+    }
 
     @GetMapping("/{id}")
     public BrandDTO getById(@PathVariable Long id) {
@@ -33,7 +36,7 @@ public class BrandController {
         return brandService.updateBrand(id, brandDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/id")
     public ResponseEntity<Void> deleteBrand(@PathVariable Long id) {
         brandService.deleteBrand(id);
         return ResponseEntity.noContent().build();

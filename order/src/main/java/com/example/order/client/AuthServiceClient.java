@@ -1,17 +1,16 @@
-package com.example.order.service;
+package com.example.order.client;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+@Component
 @AllArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceClient {
 
     private final RestTemplate restTemplate;
-
-    @Override
+    
     public boolean userExist(Long id) {
         try {
             restTemplate.getForEntity("http://auth-service/users/" + id, Void.class);

@@ -1,0 +1,4 @@
+services:
+  eureka-server:
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
