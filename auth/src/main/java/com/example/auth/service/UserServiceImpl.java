@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register(UserRequest userRequest) {
-        if (repository.existByUserName(userRequest.getUserName())) {
+        if (repository.existsByUsername(userRequest.getUserName())) {
             throw new UserExistException(userRequest.getUserName());
         }
 
@@ -33,14 +33,14 @@ public class UserServiceImpl implements UserService {
         user.setFullName(userRequest.getFullName());
         user.setUsername(userRequest.getUserName());
         user.setPassword(encoder.encode(userRequest.getPassword()));
-        user.setRole(String.valueOf(Role.USER));
+        user.setRole(Role.USER);
 
         return mapper.toDTO(repository.save(user));
     }
 
     @Override
     public UserDTO findByUserName(String userName) {
-        return repository.findByUserName(userName)
+        return repository.findByUsername(userName)
                 .map(mapper::toDTO).orElseThrow(() -> new UserNotFoundException(userName));
     }
 

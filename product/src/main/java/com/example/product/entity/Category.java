@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Category {
 
@@ -21,4 +21,8 @@ public class Category {
     @GeneratedValue
     private Long id;
     private String name;
+
+    public Category(String name) {
+        this.name = name;
+    }
 }

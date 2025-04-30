@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Product {
 
@@ -34,4 +34,13 @@ public class Product {
     @ManyToOne
     private Brand brand;
 
+    public Product(String name, String description, BigDecimal price,
+                   Integer quantity, Category category, Brand brand) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.brand = brand;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.product.service;
 
 import com.example.product.dto.ProductDTO;
 import com.example.product.entity.Product;
+import com.example.product.exception.ProductLowerZeroQuantityException;
 import com.example.product.exception.ProductNotFoundException;
 import com.example.product.mapper.MainMapper;
 import com.example.product.repository.ProductRepository;
@@ -49,6 +50,18 @@ public class ProductServiceImpl implements ProductService {
         }
         Product productToUpdate = mapper.toEntity(productDTO);
         productToUpdate.setId(id);
+        return mapper.toDTO(repository.save(productToUpdate));
+    }
+
+    @Transactional
+    @Override
+    public ProductDTO updateProductQuantity(Long id, Integer quantity) {
+        Product productToUpdate = repository
+                .findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        if (productToUpdate.getQuantity() - quantity < 0) {
+            throw new ProductLowerZeroQuantityException();
+        }
+        productToUpdate.setQuantity(productToUpdate.getQuantity() - quantity);
         return mapper.toDTO(repository.save(productToUpdate));
     }
 

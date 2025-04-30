@@ -6,14 +6,13 @@ import com.example.product.dto.ProductDTO;
 import com.example.product.entity.Brand;
 import com.example.product.entity.Category;
 import com.example.product.entity.Product;
-import java.math.BigDecimal;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-30T01:13:10+0500",
-    comments = "version: 1.6.2, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
+    date = "2025-04-30T16:05:48+0500",
+    comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class MainMapperImpl implements MainMapper {
@@ -24,23 +23,15 @@ public class MainMapperImpl implements MainMapper {
             return null;
         }
 
-        String name = null;
-        String description = null;
-        BigDecimal price = null;
-        Integer quantity = null;
-        Category category = null;
-        Brand brand = null;
+        Product product = new Product();
 
-        name = dto.getName();
-        description = dto.getDescription();
-        price = dto.getPrice();
-        quantity = dto.getQuantity();
-        category = dto.getCategory();
-        brand = dto.getBrand();
-
-        Long id = null;
-
-        Product product = new Product( id, name, description, price, quantity, category, brand );
+        product.setId( dto.getId() );
+        product.setName( dto.getName() );
+        product.setDescription( dto.getDescription() );
+        product.setPrice( dto.getPrice() );
+        product.setQuantity( dto.getQuantity() );
+        product.setCategory( dto.getCategory() );
+        product.setBrand( dto.getBrand() );
 
         return product;
     }
@@ -53,6 +44,7 @@ public class MainMapperImpl implements MainMapper {
 
         ProductDTO productDTO = new ProductDTO();
 
+        productDTO.setId( entity.getId() );
         productDTO.setName( entity.getName() );
         productDTO.setDescription( entity.getDescription() );
         productDTO.setPrice( entity.getPrice() );
@@ -69,13 +61,9 @@ public class MainMapperImpl implements MainMapper {
             return null;
         }
 
-        String name = null;
+        Category category = new Category();
 
-        name = dto.getName();
-
-        Long id = null;
-
-        Category category = new Category( id, name );
+        category.setName( dto.getName() );
 
         return category;
     }
@@ -99,13 +87,9 @@ public class MainMapperImpl implements MainMapper {
             return null;
         }
 
-        String name = null;
+        Brand brand = new Brand();
 
-        name = dto.getName();
-
-        Long id = null;
-
-        Brand brand = new Brand( id, name );
+        brand.setName( dto.getName() );
 
         return brand;
     }

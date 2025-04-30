@@ -2,7 +2,6 @@ package com.example.product.controller;
 
 import com.example.product.dto.ProductDTO;
 import com.example.product.service.ProductService;
-import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +33,11 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductDTO updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         return productService.updateProduct(id, productDTO);
+    }
+
+    @PostMapping("/{id}/decrease")
+    public ProductDTO updateProductQuantity(@PathVariable Long id, @RequestParam("quantity") Integer qty) {
+        return productService.updateProductQuantity(id, qty);
     }
 
     @DeleteMapping("{id}")

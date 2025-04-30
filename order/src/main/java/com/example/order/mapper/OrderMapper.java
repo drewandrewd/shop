@@ -31,6 +31,7 @@ public interface OrderMapper {
     @Mapping(source = "product.id", target = "productId")
     @Mapping(source = "product.name", target = "productName")
     @Mapping(source = "product.price", target = "price")
+    @Mapping(source = "product.description", target = "description")
     @Mapping(source = "item.quantity", target = "quantity")
     OrderItemDTO toOrderItemDTO(OrderItem item, ProductDTO product);
 }

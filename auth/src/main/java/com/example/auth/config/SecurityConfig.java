@@ -21,11 +21,11 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(UserRepository repo) {
         return username ->
-                repo.findByUserName(username)
+                repo.findByUsername(username)
                         .map(user ->
                                 User.withUsername(user.getUsername())
                                         .password(user.getPassword())
-                                        .roles(user.getRole())
+                                        .roles(user.getRole().toString())
                                         .build()
                         )
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -41,7 +41,15 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers(
+                                "/auth/register",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());

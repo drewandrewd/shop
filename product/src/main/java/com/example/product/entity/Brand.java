@@ -3,17 +3,12 @@ package com.example.product.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Brand {
 
@@ -21,4 +16,8 @@ public class Brand {
     @GeneratedValue
     private Long id;
     private String name;
+
+    public Brand(String name) {
+        this.name = name;
+    }
 }
