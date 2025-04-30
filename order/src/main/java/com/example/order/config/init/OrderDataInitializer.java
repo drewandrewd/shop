@@ -7,6 +7,8 @@ import com.example.order.entity.OrderItem;
 import com.example.order.repostory.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -15,13 +17,13 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class OrderDataInitializer implements CommandLineRunner {
+public class OrderDataInitializer {
 
     private final OrderRepository orderRepository;
     private final ProductServiceClient productClient;
 
-    @Override
-    public void run(String... args) {
+    @EventListener(ApplicationReadyEvent.class)
+    public void init() {
         if (orderRepository.count() == 0) {
             Order order = new Order();
             order.setUserId(1L);

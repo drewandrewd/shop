@@ -65,10 +65,22 @@ public class ProductServiceImpl implements ProductService {
         return mapper.toDTO(repository.save(productToUpdate));
     }
 
+    @Override
+    public List<ProductDTO> getProductsByName(String name) {
+        return repository.findByNameContainingIgnoreCase(name)
+                .stream().map(mapper::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> getProductsByBrand(String brand) {
+        return repository.findByBrandNameContainingIgnoreCase(brand)
+                .stream().map(mapper::toDTO).collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public void deleteProduct(Long id) {
-        if (repository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new ProductNotFoundException(id);
         }
         repository.deleteById(id);

@@ -21,15 +21,6 @@ public class AuthServiceClient {
 
     @Value("${auth.client.password}")
     private String password;
-    
-//    public boolean userExist(Long id) {
-//        try {
-//            restTemplate.getForEntity("http://auth-service/users/" + id, Void.class);
-//            return true;
-//        } catch (HttpClientErrorException.NotFound e) {
-//            return false;
-//        }
-//    }
 
         public void userExist(Long id) {
             HttpHeaders headers = new HttpHeaders();

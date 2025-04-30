@@ -18,7 +18,6 @@ public class ProductDTO {
     private String description;
     private BigDecimal price;
     private Integer quantity;
-    private Category category;
-    private Brand brand;
-
+    private CategoryDTO category;
+    private BrandDTO brand;
 }

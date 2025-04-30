@@ -75,6 +75,7 @@ services:
     depends_on:
       - postgres-order
       - eureka-server
+      - product-service
     networks:
       - shop-network
 

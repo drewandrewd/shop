@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-30T16:05:48+0500",
-    comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
+    date = "2025-04-30T21:13:46+0500",
+    comments = "version: 1.6.2, compiler: javac, environment: Java 17.0.10 (Amazon.com Inc.)"
 )
 @Component
 public class MainMapperImpl implements MainMapper {
@@ -30,8 +30,8 @@ public class MainMapperImpl implements MainMapper {
         product.setDescription( dto.getDescription() );
         product.setPrice( dto.getPrice() );
         product.setQuantity( dto.getQuantity() );
-        product.setCategory( dto.getCategory() );
-        product.setBrand( dto.getBrand() );
+        product.setCategory( toEntity( dto.getCategory() ) );
+        product.setBrand( toEntity( dto.getBrand() ) );
 
         return product;
     }
@@ -49,8 +49,8 @@ public class MainMapperImpl implements MainMapper {
         productDTO.setDescription( entity.getDescription() );
         productDTO.setPrice( entity.getPrice() );
         productDTO.setQuantity( entity.getQuantity() );
-        productDTO.setCategory( entity.getCategory() );
-        productDTO.setBrand( entity.getBrand() );
+        productDTO.setCategory( toDTO( entity.getCategory() ) );
+        productDTO.setBrand( toDTO( entity.getBrand() ) );
 
         return productDTO;
     }
@@ -63,6 +63,7 @@ public class MainMapperImpl implements MainMapper {
 
         Category category = new Category();
 
+        category.setId( dto.getId() );
         category.setName( dto.getName() );
 
         return category;
@@ -76,6 +77,7 @@ public class MainMapperImpl implements MainMapper {
 
         CategoryDTO categoryDTO = new CategoryDTO();
 
+        categoryDTO.setId( entity.getId() );
         categoryDTO.setName( entity.getName() );
 
         return categoryDTO;
@@ -89,6 +91,7 @@ public class MainMapperImpl implements MainMapper {
 
         Brand brand = new Brand();
 
+        brand.setId( dto.getId() );
         brand.setName( dto.getName() );
 
         return brand;
@@ -102,6 +105,7 @@ public class MainMapperImpl implements MainMapper {
 
         BrandDTO brandDTO = new BrandDTO();
 
+        brandDTO.setId( entity.getId() );
         brandDTO.setName( entity.getName() );
 
         return brandDTO;

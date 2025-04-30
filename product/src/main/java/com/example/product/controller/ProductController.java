@@ -45,4 +45,14 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search/by-name")
+    public Iterable<ProductDTO> getProductByName(@RequestParam String name) {
+        return productService.getProductsByName(name);
+    }
+
+    @GetMapping("/search/by-brand")
+    public Iterable<ProductDTO> getProductsByBrand(@RequestParam String brand) {
+        return productService.getProductsByBrand(brand);
+    }
 }
